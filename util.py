@@ -66,7 +66,7 @@ def get_embedding_matrix(word2idx, idx2word, name, normalization=False):
     glove_path = "./data/glove.840B.300d.txt"
     # glove_path = '/content/drive/My Drive/bnc-corpus/glove/vectors_200d.txt'
     try:
-      with open('./data/embeddings_'+name+'.pkl', 'rb') as f:
+      with open('./data/' + name + '/embeddings.pkl', 'rb') as f:
         glove_vectors = pickle.load(f)
     except:
       glove_vectors = {}

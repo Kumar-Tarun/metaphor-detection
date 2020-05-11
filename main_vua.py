@@ -19,7 +19,9 @@ import copy
 import os
 try:
   os.mkdir('./models/')
+  os.mkdir('./models/vua/')
   os.mkdir('./graphs/')
+  os.mkdir('./graphs/vua/')
   os.mkdir('./predictions/')
 except:
   pass
@@ -49,14 +51,14 @@ pos_set = set()
 raw_train_vua = []
 ma = 0
 option = 'vua'
-TRAIN_PATH = './data/VUA_corpus_train.csv'
-VAL_PATH = './data/VUA_corpus_val.csv'
-TEST_PATH = './data/VUA_corpus_test.csv'
-ELMO_TRAIN_PATH = './data/elmo/elmo_train.pkl'
-ELMO_VAL_PATH = './data/elmo/elmo_val.pkl'
-ELMO_TEST_PATH = './data/elmo/elmo_test.pkl'
-ALL_POS_TOKENS = './data/test_tokens.pkl'
-VERB_TOKENS = './data/verb_test_tokens.pkl'
+TRAIN_PATH = './data/vua/VUA_corpus_train.csv'
+VAL_PATH = './data/vua/VUA_corpus_val.csv'
+TEST_PATH = './data/vua/VUA_corpus_test.csv'
+ELMO_TRAIN_PATH = './data/vua/elmo_train.pkl'
+ELMO_VAL_PATH = './data/vua/elmo_val.pkl'
+ELMO_TEST_PATH = './data/vua/elmo_test.pkl'
+ALL_POS_TOKENS = './data/vua/all_pos_test_tokens.pkl'
+VERB_TOKENS = './data/vua/verb_test_tokens.pkl'
 
 with open(TRAIN_PATH, encoding='latin-1') as f:
     lines = csv.reader(f)
@@ -106,10 +108,10 @@ get vocabulary and glove embeddings in raw dataset
 # vocab is a set of words
 vocab, char_vocab = get_vocab(raw_train_vua)
 try:
-  with open('/content/drive/My Drive/metaphor-in-context/sequence/char_vocab.pkl', 'rb') as f:
+  with open('/data/vua/char_vocab.pkl', 'rb') as f:
     char_vocab = pickle.load(f)
 except:
-  with open('/content/drive/My Drive/metaphor-in-context/sequence/char_vocab.pkl', 'wb+') as f:
+  with open('/data/vua/char_vocab.pkl', 'wb+') as f:
     pickle.dump(char_vocab, f)
 # two dictionaries. <PAD>: 0, <UNK>: 1
 word2idx, idx2word = get_word2idx_idx2word(vocab)
@@ -334,7 +336,7 @@ torch.save({
             'epoch': num_epochs,
             'model_state_dict': best_model_weights,
             'optimizer_state_dict':best_optimizer_dict,
-            }, './models/model.tar')
+            }, './models/vua/model.tar')
 
 """
 3.3
@@ -342,13 +344,13 @@ plot the training process: losses for validation and training dataset
 """
 plt.figure(0)
 plt.title('Loss for VUA dataset')
-plt.xlabel('iteration (unit:200)')
+plt.xlabel('iteration (unit:1000)')
 plt.ylabel('Loss')
 plt.plot(val_loss, 'g')
 plt.plot(train_loss, 'b')
 plt.legend(['Validation loss', 'Training loss'], loc='upper right')
 # plt.show()
-plt.savefig(f'./graphs/Loss_{im}.png')
+plt.savefig(f'./graphs/vua/Loss_{im}.png')
 
 
 plt.figure(1)
@@ -358,7 +360,7 @@ plt.ylabel('F1')
 for i in range(len(idx2pos)):
     plt.plot([x[i] for x in val_f1s])
 plt.legend([idx2pos[i] for i in range(len(idx2pos))], loc='upper left')
-plt.savefig(f'./graphs/val_f1_{im}.png')
+plt.savefig(f'./graphs/vua/val_f1_{im}.png')
 
 print("**********************************************************")
 print("Evalutation on test set (new) (all pos): ")
@@ -397,8 +399,7 @@ test_dataset_vua = TextDataset([example[0] for example in embedded_test_vua],
 test_dataloader_vua = DataLoader(dataset=test_dataset_vua, batch_size=batch_size,
                               collate_fn=TextDataset.collate_fn)
 
-avg_eval_loss, precision, recall, performance_matrix = evaluate(idx2pos, test_dataloader_vua, loss_criterion, using_GPU, RNNseq_model, Transformer_model, 'test')
-f1_score = 2*precision*recall/(precision+recall)
+preds, test_pos_seqs = evaluate(idx2pos, test_dataloader_vua, loss_criterion, using_GPU, RNNseq_model, Transformer_model, 'test')
 
 with open(ALL_POS_TOKENS, 'rb') as f:
   test_dic = pickle.load(f)
