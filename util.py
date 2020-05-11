@@ -6,6 +6,7 @@ import mmap
 import math
 import ast
 import csv
+import os
 import pickle
 from torch.utils.data import Dataset
 import torch.nn as nn
@@ -749,3 +750,15 @@ class TextDatasetWithGloveElmoSuffix(Dataset):
                 torch.LongTensor(padding_amounts),
                 torch.LongTensor(batch_char_seqs)
                 )
+
+if __name__ == '__main__':
+    os.mkdir('./data/')
+    os.mkdir('./data/toefl/')
+    os.mkdir('./data/vua/')
+    os.mkdir('./models/')
+    os.mkdir('./models/toefl/')
+    os.mkdir('./models/vua/')
+    os.mkdir('./graphs/')
+    os.mkdir('./graphs/toefl/')
+    os.mkdir('./graphs/vua/')
+    os.mkdir('./predictions/')

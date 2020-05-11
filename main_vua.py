@@ -16,15 +16,6 @@ import ast
 import numpy as np
 import pandas as pd
 import copy
-import os
-try:
-  os.mkdir('./models/')
-  os.mkdir('./models/vua/')
-  os.mkdir('./graphs/')
-  os.mkdir('./graphs/vua/')
-  os.mkdir('./predictions/')
-except:
-  pass
 import matplotlib.pyplot as plt
 
 print("PyTorch version:")
@@ -32,7 +23,7 @@ print(torch.__version__)
 print("GPU Detected:")
 print(torch.cuda.is_available())
 using_GPU = True
-im = 'sc_dis'
+im = '1'
 
 """
 1. Data pre-processing
