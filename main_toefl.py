@@ -47,8 +47,8 @@ TEST_PATH = '/data/toefl/TOEFL_corpus_test.csv'
 ELMO_TRAIN_PATH = '/data/toefl/elmo_train.pkl'
 ELMO_VAL_PATH = '/data/toefl/elmo_val.pkl'
 ELMO_TEST_PATH = '/data/toefl/elmo_test.pkl'
-ALL_POS_TOKENS = '/data/toefl/all_pos_tokens_test.pkl'
-VERB_TOKENS = '/data/toefl/verb_tokens_test.pkl'
+ALL_POS_TOKENS = '/data/toefl/all_pos_test_tokens.pkl'
+VERB_TOKENS = '/data/toefl/verb_test_tokens.pkl'
 
 with open(TRAIN_PATH, encoding='latin-1') as f:
     lines = csv.reader(f)
