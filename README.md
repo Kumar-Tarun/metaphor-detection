@@ -19,7 +19,7 @@ This repository describes our system for the task of Metaphor Detection.
 
 ## Use
 * Run ```python data_preparation.py [option]```, where option *vua* creates all files (including ELMo vectors) for the VUA dataset and *toefl* for the TOEFL dataset. This script also splits the training dataset into train and validation sub parts. Note it takes time to compute the ELMo vectors.
-* Run ```main_xyz.py``` to run the experiments on the respective dataset. It will store the produced graphs in **./graphs/xyz/** folder. It also produces the test predictions which are stored as ```xyz_all_pos_pred.csv``` and ```xyz_verb_pred.csv``` in the **./predictions/** folder.
+* Run ```python main_xyz.py``` to run the experiments on the respective dataset. It will store the produced graphs in **./graphs/xyz/** folder. It also produces the test predictions which are stored as ```xyz_all_pos_pred.csv``` and ```xyz_verb_pred.csv``` in the **./predictions/** folder.
 
 ## Note
 * The outputs here are expected to match the results reported in paper for the single run case.
