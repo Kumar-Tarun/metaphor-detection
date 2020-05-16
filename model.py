@@ -263,10 +263,9 @@ class TransformerBlock(nn.Module):
     return {0:x, 1:pad_amounts}
 
 class Transformer(nn.Module):
-    def __init__(self, emb, k, heads, depth, seq_length, num_tokens, num_classes, char_vocab_size, char_embed_dim, name='vua'):
+    def __init__(self, emb, k, heads, depth, num_classes, char_vocab_size, char_embed_dim, name='vua'):
         super(Transformer1, self).__init__()
 
-        self.num_tokens = num_tokens
         self.char_emb = CharCNN(char_vocab_size, char_embed_dim)
         self.name = name
 

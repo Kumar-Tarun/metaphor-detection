@@ -174,9 +174,8 @@ RNNseq_model = RNNSequenceModel(num_classes=2, embedding_dim=300+1024+250+30,
                                 char_vocab_size=len(c2idx), char_embed_dim=50,
                                 dropout1=0.5, dropout2=0, dropout3=0.1, name='toefl')
 
-Transformer_model = Transformer1(emb=300+1024+250+30, k=300, heads=1, depth=1, 
-                                seq_length=128, num_tokens=13845, num_classes=2,
-                                char_vocab_size=len(c2idx), char_embed_dim=50, name='toefl')
+Transformer_model = Transformer(emb=300+1024+250+30, k=300, heads=1, depth=1, 
+                                num_classes=2, char_vocab_size=len(c2idx), char_embed_dim=50, name='toefl')
 
 transformer_parameters = sum(p.numel() for p in Transformer_model.parameters() if p.requires_grad)
 rnn_parameters = sum(p.numel() for p in RNNseq_model.parameters() if p.requires_grad)
