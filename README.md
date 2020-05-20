@@ -24,3 +24,7 @@ This repository describes our system for the task of Metaphor Detection.
 ## Note
 * The outputs here are expected to match the results reported in paper for the single run case.
 * For ensembling, the code is not provided, one can run different models by varying hyperparameters of the model (as mentioned in paper) and aggregate by majority voting.
+
+## Credits
+* Structure of files is adapted from https://github.com/gao-g/metaphor-in-context
+* Transformer model is adapted from https://github.com/pbloem/former
