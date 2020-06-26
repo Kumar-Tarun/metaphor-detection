@@ -28,3 +28,20 @@ This repository describes our system for the task of Metaphor Detection.
 ## Credits
 * Structure of files is adapted from https://github.com/gao-g/metaphor-in-context
 * Transformer model is adapted from https://github.com/pbloem/former
+
+## Citation
+* If you find this work useful, consider citing it:
+```
+@inproceedings{kumar-sharma-2020-character,
+    title = "Character aware models with similarity learning for metaphor detection",
+    author = "Kumar, Tarun  and
+      Sharma, Yashvardhan",
+    booktitle = "Proceedings of the Second Workshop on Figurative Language Processing",
+    month = jul,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/2020.figlang-1.18",
+    pages = "116--125",
+}
+```
