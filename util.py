@@ -67,7 +67,7 @@ def get_embedding_matrix(word2idx, idx2word, name, normalization=False):
     glove_path = "./data/glove.840B.300d.txt"
     # glove_path = '/content/drive/My Drive/bnc-corpus/glove/vectors_200d.txt'
     try:
-      with open('./data/' + name + '/embeddings.pkl', 'rb') as f:
+      with open('./data/embeddings_' + name + '.pkl', 'rb') as f:
         glove_vectors = pickle.load(f)
     except:
       glove_vectors = {}
@@ -84,7 +84,7 @@ def get_embedding_matrix(word2idx, idx2word, name, normalization=False):
               assert len(vector) == embedding_dim
               glove_vectors[word] = vector
 
-      with open('./data/embeddings_'+name+'.pkl', 'wb+') as f:
+      with open('./data/embeddings_' + name + '.pkl', 'wb+') as f:
         pickle.dump(glove_vectors, f)
     print("Number of pre-trained word vectors loaded: ", len(glove_vectors))
 
@@ -620,33 +620,14 @@ class TextDatasetWithGloveElmoSuffix(Dataset):
         """
         if len(embedded_text) != len(labels):
             raise ValueError("Differing number of sentences and labels!")
-        # A list of numpy arrays, where each inner numpy arrays is sequence_length * embed_dim
-        # embedding for each word is : glove + elmo + suffix
         self.embedded_text = embedded_text
-        # A list of indexed pos sequences
-        # where each inner list is the indexed pos tags for the sentence at the corresponding index.
         self.pos_seqs = pos_seqs
-        #  a list of list: each inner list is a sequence of 0, 1.
-        # where each inner list is the label for the sentence at the corresponding index.
         self.labels = labels
-
-        self.char_indexed_seq = char_indexed_seq
-        # Truncate examples that are longer than max_sequence_length.
-        # Long sequences are expensive and might blow up GPU memory usage.
+        self.char_indexed_seq = char_indexed_seq.
 
     def __getitem__(self, idx):
         """
         Return the Dataset example at index `idx`.
-
-        Returns
-        -------
-        example_pos_seq:
-            a list of indexed pos tag sequence
-        example_text: numpy array
-        length: int
-            The length of the (possibly truncated) example_text.
-        example_label_seq: a list of 0 or 1
-            The label of the example.
         """
         example_pos_seq = self.pos_seqs[idx]
         example_text = self.embedded_text[idx]
